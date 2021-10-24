@@ -1,50 +1,24 @@
-"""Реализация quick_sort"""
 
-from random import randint
-from time import perf_counter
+import math
 
-N = [randint(-10, 10) for x in range(100000)]
-copyAr = N[:]
+def calculate_distance(x, y):
+    return math.sqrt(x**2 + y**2)
 
-def quick_sort_equals(A, left, right):
-    if left < right:
-        x = A[left]
-        m1 = left
-        m2 = m1
-        for i in range(left + 1, right):
-            if A[i] < x:
-                m1 += 1
-                m2 += 1
-                A[m2], A[i] = A[i], A[m2]
-                A[m1], A[m2] = A[m2], A[m1]
-            elif A[i] == x:
-                m2 += 1
-                A[m2], A[i] = A[i], A[m2]
-        A[left], A[m1] = A[m1], A[left]
-        quick_sort_equals(A, left, m1)
-        quick_sort_equals(A, m2 +1, right)
+ans = [ [6, 6], [1, 1], [3, 3] ]
 
-quick_sort_equals(N, 0, len(N))
 
-print(N == sorted(copyAr))
+ans = sorted(ans, key=lambda ar:  math.sqrt(ar[0]**2 + ar[1]**2))
 
-'''
-A = [6,4,2,3,9,8,9,4,7,6,1,6]
-left = 0
-right = len(A)
-x = A[left]
-m1 = left
-m2 = m1
-for i in range(left + 1, right):
-    if A[i] < x:
-        m1 += 1
-        m2 += 1
-        A[m2], A[i] = A[i], A[m2]
-        A[m1], A[m2] = A[m2], A[m1]
-    elif A[i] == x:
-        m2 += 1
-        A[m2], A[i] = A[i], A[m2]
 
-A[left], A[m1] = A[m1], A[left]
 
-print(A)'''
+X,Y = 1, 0
+
+if calculate_distance(X, Y) < calculate_distance(ans[-1][0], ans[-1][1]):
+    ans[-1] = [X, Y]
+    min_index = -2
+    while min_index >= -len(ans) and calculate_distance(X, Y) < calculate_distance(ans[min_index][0], ans[min_index][1]):
+        ans[min_index], ans[min_index + 1] = ans[min_index + 1], ans[min_index]
+        min_index -= 1
+
+print(ans)
+
