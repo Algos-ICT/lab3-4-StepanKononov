@@ -1,6 +1,5 @@
 import math
 
-
 lenght, count = map(int, input().split())
 
 ans = []
